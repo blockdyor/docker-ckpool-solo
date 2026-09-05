@@ -7,7 +7,7 @@ Disables all CPU optimisations for wide support accross old and modern amd64 and
 ## Usage
 
 ```
-$ docker run -it ghcr.io/getumbrel/docker-ckpool-solo:v1.1.1 --help
+$ docker run -it ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0 --help
 -B | --btcsolo
 -c CONFIG | --config CONFIG
 -D | --daemonise
@@ -29,7 +29,7 @@ $ docker run -it ghcr.io/getumbrel/docker-ckpool-solo:v1.1.1 --help
 ```
 
 ```
-$ docker run -it --volume $PWD:/data -p 3333:3333 ghcr.io/getumbrel/docker-ckpool-solo:v1.1.1 --btcsolo --config /data/ckpool.conf
+$ docker run -it --volume $PWD:/data -p 3333:3333 ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0 --btcsolo --config /data/ckpool.conf
 [2025-12-11 17:40:54.742] ckpool generator starting
 [2025-12-11 17:40:54.743] ckpool stratifier starting
 [2025-12-11 17:40:54.745] ckpool connector starting

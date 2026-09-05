@@ -1,4 +1,4 @@
-ARG VERSION=v1.1.1
+ARG VERSION=v1.2.0
 
 # Build stage
 FROM debian:trixie-slim AS builder
