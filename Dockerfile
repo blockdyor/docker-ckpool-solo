@@ -21,10 +21,11 @@ RUN git checkout $VERSION
 # Context: https://github.com/getumbrel/umbrel-apps/pull/4230#issuecomment-3643104054
 RUN sed -i "s/host_cpu = 'x86_64'/host_cpu = 'x86_64-disabled'/" configure.ac
 RUN sed -i "s/host_cpu = 'aarch64'/host_cpu = 'aarch64-disabled'/" configure.ac
+RUN sed -i "s/-march=native//g" configure.ac
 
 # Build
 RUN ./autogen.sh
-RUN ./configure
+RUN ./configure CFLAGS="-O2 -Wall" CXXFLAGS="-O2 -Wall"
 RUN make -j$(nproc)
 
 # Final image
