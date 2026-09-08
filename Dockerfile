@@ -49,8 +49,8 @@ LABEL org.opencontainers.image.title="docker-ckpool-solo" \
       org.opencontainers.image.description="Portable multi-architecture ckpool solo-mining server" \
       org.opencontainers.image.licenses="MIT AND GPL-3.0-or-later" \
       org.opencontainers.image.version="${CKPOOL_VERSION}" \
-      io.github.blockdyor.ckpool.commit="${CKPOOL_COMMIT}" \
-      io.github.blockdyor.ckpool.source="https://bitbucket.org/ckolivas/ckpool"
+      org.ckpool.upstream.commit="${CKPOOL_COMMIT}" \
+      org.ckpool.upstream.source="https://bitbucket.org/ckolivas/ckpool"
 
 RUN apt-get update \
     && apt-get install --no-install-recommends --yes libzmq5 \
