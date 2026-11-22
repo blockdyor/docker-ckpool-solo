@@ -20,7 +20,7 @@ published with SBOM and provenance attestations.
 ## Usage
 
 ```console
-$ docker run --rm ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0-1 --help
+$ docker run --rm ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0-2 --help
 -B | --btcsolo
 -c CONFIG | --config CONFIG
 -D | --daemonise
@@ -42,7 +42,7 @@ $ docker run --rm ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0-1 --help
 ```
 
 ```console
-$ docker run --rm --volume "$PWD:/data:ro" -p 3333:3333 ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0-1 --btcsolo --config /data/ckpool.conf
+$ docker run --rm --volume "$PWD:/data:ro" -p 3333:3333 -p 3336:3336 ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0-2 --btcsolo --config /data/ckpool.conf
 [2025-12-11 17:40:54.742] ckpool generator starting
 [2025-12-11 17:40:54.743] ckpool stratifier starting
 [2025-12-11 17:40:54.745] ckpool connector starting
@@ -69,7 +69,7 @@ docker run --rm docker-ckpool-solo:local --help
 
 The pinned Debian digest and `CKPOOL_COMMIT` build argument should only be
 updated together with a reviewed dependency or upstream release change.
-Release tags use `<ckpool-version>-<packaging-revision>`, such as `v1.2.0-1`,
+Release tags use `<ckpool-version>-<packaging-revision>`, such as `v1.2.0-2`,
 so a packaging update never overwrites an existing image.
 
 ## Licenses
