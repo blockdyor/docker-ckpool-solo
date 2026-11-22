@@ -1,15 +1,21 @@
 # docker-ckpool-solo
 
-> Hardened, multi-architecture ckpool solo-mining image with broad CPU portability.
+> Hardened, multi-architecture ckpool solo-mining image with Stratum V1, Stratum V2, ZMQ, optional Mining IPC, and broad CPU portability.
 
 The image supports Linux amd64 and arm64. Host-specific instruction-set
 optimizations are disabled so a build produced on one machine does not crash on
-an older CPU. The runtime contains only ckpool and its ZeroMQ runtime
-dependencies, and runs as UID/GID `1000:1000` by default.
+an older CPU. The runtime contains only ckpool and its shared runtime libraries
+(ZeroMQ, libsodium, and Cap'n Proto; secp256k1 is statically linked), and runs
+as UID/GID `1000:1000` by default.
 
-The upstream ckpool source revision and Debian base image are pinned to make
-build inputs auditable. Release tags are immutable and published with SBOM and
-provenance attestations.
+Standard JSON-RPC + ZeroMQ works with both Bitcoin Core and Bitcoin Knots (such
+as Bitcoin Knots 29.3+). Optional Cap'n Proto Mining IPC (`ipcmining`) and
+Stratum V2 Job Declaration (`sv2jdurl`) are compiled in and stay disabled unless
+explicitly configured in `ckpool.conf`.
+
+The upstream ckpool source revision, bundled `secp256k1` commit, and Debian base
+image are pinned to make build inputs auditable. Release tags are immutable and
+published with SBOM and provenance attestations.
 
 ## Usage
 

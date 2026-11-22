@@ -68,7 +68,7 @@ jobs:
           test "$(docker image inspect --format '{{.Config.User}}' "$image")" = "1000:1000"
           docker run --rm "$image" --help
           docker run --rm --entrypoint /bin/sh "$image" -c \
-            'test "$(id -u):$(id -g)" = "1000:1000" && test -x ./bin/ckpool && ! dpkg-query -W libzmq3-dev'
+            'test "$(id -u):$(id -g)" = "1000:1000" && test -x ./bin/ckpool && ! dpkg-query -W libzmq3-dev && ! dpkg-query -W libsodium-dev && ! dpkg-query -W libcapnp-dev && ldd ./bin/ckpool | grep -q libsodium && ldd ./bin/ckpool | grep -q libcapnp'
 
       - name: Scan runtime image
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
