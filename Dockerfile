@@ -74,7 +74,7 @@ RUN apt-get update \
     && install --directory --owner ckpool --group ckpool /app/bin /app/logs /sv2
 
 COPY --from=builder --chown=ckpool:ckpool /build/src/ckpool /app/bin/ckpool
-COPY --chown=ckpool:ckpool --chmod=755 ckpool-start.sh /app/bin/ckpool-start.sh
+COPY --chmod=755 ckpool-start.sh /app/bin/ckpool-start.sh
 COPY --from=builder /build/COPYING /usr/share/doc/ckpool/COPYING
 COPY --from=builder /build/src/secp256k1/COPYING /usr/share/doc/ckpool/COPYING.secp256k1
 
