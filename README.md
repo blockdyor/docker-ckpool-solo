@@ -13,6 +13,14 @@ Standard JSON-RPC + ZeroMQ works with both Bitcoin Core and Bitcoin Knots
 IPC (`ipcmining`) and Stratum V2 Job Declaration (`sv2jdurl`) are compiled in
 and stay disabled unless explicitly configured in `ckpool.conf`.
 
+The container entrypoint (`/app/bin/ckpool-start.sh`) exports the compiled
+CKPool version to `/www/pool/version.json` when `/www` is writable, optionally
+waits up to 30 seconds at startup for Bitcoin Core's IPC socket when
+`APP_BITCOIN_IPC_ENABLED=true`, and reloads CKPool gracefully on `SIGTERM` only
+when an explicit `.reload-trigger` file changes alongside `ckpool.conf`.
+Standalone invocations without a config file (such as `--help`) `exec` CKPool
+directly.
+
 The upstream ckpool source revision, bundled `secp256k1` commit, and Debian base
 image are pinned to make build inputs auditable. Release tags are immutable and
 published with SBOM and provenance attestations.
@@ -20,7 +28,7 @@ published with SBOM and provenance attestations.
 ## Usage
 
 ```console
-$ docker run --rm ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0-2 --help
+$ docker run --rm ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0-3 --help
 -B | --btcsolo
 -c CONFIG | --config CONFIG
 -D | --daemonise
@@ -42,7 +50,7 @@ $ docker run --rm ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0-2 --help
 ```
 
 ```console
-$ docker run --rm --volume "$PWD:/data:ro" -p 3333:3333 -p 3336:3336 ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0-2 --btcsolo --config /data/ckpool.conf
+$ docker run --rm --volume "$PWD:/data:ro" -p 3333:3333 -p 3336:3336 ghcr.io/blockdyor/docker-ckpool-solo:v1.2.0-3 --btcsolo --config /data/ckpool.conf
 [2025-12-11 17:40:54.742] ckpool generator starting
 [2025-12-11 17:40:54.743] ckpool stratifier starting
 [2025-12-11 17:40:54.745] ckpool connector starting
@@ -69,7 +77,7 @@ docker run --rm docker-ckpool-solo:local --help
 
 The pinned Debian digest and `CKPOOL_COMMIT` build argument should only be
 updated together with a reviewed dependency or upstream release change.
-Release tags use `<ckpool-version>-<packaging-revision>`, such as `v1.2.0-2`,
+Release tags use `<ckpool-version>-<packaging-revision>`, such as `v1.2.0-3`,
 so a packaging update never overwrites an existing image.
 
 ## Licenses
