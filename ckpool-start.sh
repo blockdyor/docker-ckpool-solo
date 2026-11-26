@@ -9,6 +9,18 @@ ipc_wait_max=${CKPOOL_IPC_WAIT_SECONDS:-30}
 version=$(LC_ALL=C grep -aoE 'ckpool/[0-9]+(\.[0-9]+){1,3}([+-][0-9A-Za-z.-]+)?' "$binary" 2>/dev/null | head -n 1)
 version=${version#ckpool/}
 
+# Append packaging revision (e.g. "4" -> "1.2.0-4") when set to digits and version has no suffix.
+rev=${CKPOOL_PACKAGING_REV:-}
+case "$rev" in
+    ''|*[!0-9]*) ;;
+    *)
+        case "$version" in
+            *[-+]*) ;;
+            ?*) version="${version}-${rev}" ;;
+        esac
+        ;;
+esac
+
 # Publish null if the binary no longer provides this identifier; never retain an old version.
 metadata=null
 if [ -n "$version" ] && [ "${#version}" -le 64 ]; then

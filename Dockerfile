@@ -4,7 +4,7 @@ ARG DEBIAN_IMAGE=debian:trixie-slim@sha256:a72b4433de1cf7d6bae0c4cee74d0547f5860
 
 FROM ${DEBIAN_IMAGE} AS builder
 
-ARG CKPOOL_COMMIT=be3e1e0796fbea60b7792a9b62fc2614764e1fc0
+ARG CKPOOL_COMMIT=bb7991c6c0a6dd4862f6ca1109586a6778899ce5
 ARG SECP256K1_COMMIT=ebf594320dc838b9de1abb54d5ba98cef84f4297
 
 WORKDIR /build
@@ -52,13 +52,16 @@ RUN ./autogen.sh \
 FROM ${DEBIAN_IMAGE} AS runtime
 
 ARG CKPOOL_VERSION=1.2.0
-ARG CKPOOL_COMMIT=be3e1e0796fbea60b7792a9b62fc2614764e1fc0
+ARG CKPOOL_PACKAGING_REV=4
+ARG CKPOOL_COMMIT=bb7991c6c0a6dd4862f6ca1109586a6778899ce5
 ARG SECP256K1_COMMIT=ebf594320dc838b9de1abb54d5ba98cef84f4297
+
+ENV CKPOOL_PACKAGING_REV="${CKPOOL_PACKAGING_REV}"
 
 LABEL org.opencontainers.image.title="docker-ckpool-solo" \
       org.opencontainers.image.description="Portable multi-architecture ckpool solo-mining server with Stratum V1, Stratum V2, ZMQ, and optional Mining IPC" \
       org.opencontainers.image.licenses="MIT AND GPL-3.0-or-later" \
-      org.opencontainers.image.version="${CKPOOL_VERSION}" \
+      org.opencontainers.image.version="${CKPOOL_VERSION}-${CKPOOL_PACKAGING_REV}" \
       io.github.blockdyor.ckpool.commit="${CKPOOL_COMMIT}" \
       io.github.blockdyor.ckpool.secp256k1_commit="${SECP256K1_COMMIT}" \
       io.github.blockdyor.ckpool.source="https://bitbucket.org/ckolivas/ckpool"
