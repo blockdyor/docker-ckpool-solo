@@ -42,7 +42,7 @@ RUN sed -i "s/host_cpu = 'x86_64'/host_cpu = 'x86_64-disabled'/" configure.ac \
     && sed -i "s/host_cpu = 'aarch64'/host_cpu = 'aarch64-disabled'/" configure.ac
 
 RUN ./autogen.sh \
-    && ./configure --enable-sv2 CFLAGS="-O2 -Wall" CXXFLAGS="-O2 -Wall" \
+    && ./configure --enable-sv2 CFLAGS="-O3 -flto=auto -Wall" CXXFLAGS="-O3 -flto=auto -Wall" LDFLAGS="-flto=auto" \
     && grep -q '#define HAVE_SV2 1' config.h \
     && grep -q '#define HAVE_CAPNP 1' config.h \
     && make -j "$(nproc)" \
@@ -52,7 +52,7 @@ RUN ./autogen.sh \
 FROM ${DEBIAN_IMAGE} AS runtime
 
 ARG CKPOOL_VERSION=1.2.0
-ARG CKPOOL_PACKAGING_REV=4
+ARG CKPOOL_PACKAGING_REV=5
 ARG CKPOOL_COMMIT=bb7991c6c0a6dd4862f6ca1109586a6778899ce5
 ARG SECP256K1_COMMIT=ebf594320dc838b9de1abb54d5ba98cef84f4297
 
